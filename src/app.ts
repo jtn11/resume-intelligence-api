@@ -1,11 +1,17 @@
+// src/index.ts
 import express from "express";
-const app = express(); 
+import analyzeRouter from "./routes/analyze";
+import { errorHandler } from "./middlewares/error-middleware";
+
+const app = express();
+
 app.use(express.json());
 
-app.get("/" , (_, res)=>{
-    res.json({message : "Hello World"})
-} )
+// Mount router
+app.use("/api", analyzeRouter);
 
-app.listen(8000, ()=>{
-    console.log("server running on 8000")
-})
+app.use(errorHandler);
+
+app.listen(8000, () => {
+  console.log("server running on 8000");
+});
