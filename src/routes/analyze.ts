@@ -6,5 +6,4 @@ const router = Router();
 
 router.post("/analyze", analyzeResume);
 
-
 export default router;

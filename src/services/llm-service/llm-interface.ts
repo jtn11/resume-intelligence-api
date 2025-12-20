@@ -1,3 +1,3 @@
 export interface LLMProvider {
-    analyze(prompt : string) : Promise<string>
+  analyze(prompt: string): Promise<string>;
 }
