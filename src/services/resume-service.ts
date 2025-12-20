@@ -19,10 +19,16 @@ export const analyzeResumeService = async (
 
     Job Description : ${jobDescription}
 
+    RETURN ONLY pure JSON.
+    NO markdown.
+    NO explanation.
+    NO extra text.
+    NO backticks.
+
     Return only valid JSON with : 
     - matchScore (number) 
     - strengths (string[])
-    - missing skills (string[])
+    - missingSkills (string[])
     - suggestions (string[])
     `;
 
