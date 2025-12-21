@@ -11,26 +11,47 @@ export const analyzeResumeService = async (
 
   const llm = getllmProvider();
 
-  const prompt = `
-    You are a resume Analyser , 
-    Analyse the resume against the job description . 
+  const prompt = ` 
+            You are an automated Resume Intelligence Engine.
 
-    Resume : ${resumeText}
+            Your task is to compare a candidate's resume with a job description
+            and return a structured evaluation.
 
-    Job Description : ${jobDescription}
+            RULES (STRICT):
+            - Return ONLY valid JSON
+            - Do NOT include markdown, explanations, or extra text
+            - Do NOT wrap the response in backticks
+            - All arrays must contain strings only
+            - Skills must be short, normalized skill names (e.g., "React", "Node.js")
 
-    RETURN ONLY pure JSON.
-    NO markdown.
-    NO explanation.
-    NO extra text.
-    NO backticks.
+            SCORING:
+            - matchScore must be an integer between 0 and 100
+            - Score represents how well the resume matches the job description
 
-    Return only valid JSON with : 
-    - matchScore (number) 
-    - strengths (string[])
-    - missingSkills (string[])
-    - suggestions (string[])
-    `;
+            ANALYSIS GUIDELINES:
+            - strengths: skills clearly present in the resume AND relevant to the job description
+            - missingSkills: skills required by the job description but NOT found in the resume
+            - suggestions: short, actionable improvements for the resume
+
+            IF NO MEANINGFUL MATCH EXISTS:
+            - matchScore should be low (0–30)
+            - strengths may be empty
+            - missingSkills should list major required skills
+
+            INPUT:
+            Resume:
+            ${resumeText}
+
+            Job Description:
+            ${jobDescription}
+
+            OUTPUT FORMAT (JSON ONLY):
+            {
+            "matchScore": number,
+            "strengths": string[],
+            "missingSkills": string[],
+            "suggestions": string[]
+            }`;
 
   const rawResponse = await llm.analyze(prompt);
 

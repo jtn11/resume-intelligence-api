@@ -5,12 +5,9 @@ import dotenv from "dotenv";
 
 dotenv.config();
 const app = express();
-
 app.use(express.json());
 
-// Mount router
 app.use("/api", analyzeRouter);
-
 app.use(errorHandler);
 
 app.listen(8000, () => {
