@@ -15,6 +15,5 @@ export const apikeyAuth = (req: Request, res: Response, next: NextFunction) => {
     throw new ApiError(403, "Invalid api key");
   }
 
-  keydata.request += 1;
   next();
 };
