@@ -13,5 +13,7 @@ export const getUsage = (req: Request, res: Response) => {
 
   res.json({
     requestsUsed: usage,
+    totalUsed: keydata?.totalUsed,
+    maxLimit: keydata?.maxLimit,
   });
 };

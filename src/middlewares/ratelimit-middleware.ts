@@ -16,6 +16,14 @@ export const rateLimit = (req: Request, res: Response, next: NextFunction) => {
   if (!keyData) {
     throw new ApiError(401, "Invalid API key");
   }
+
+  if (keyData.totalUsed >= keyData.maxLimit) {
+    throw new ApiError(
+      429,
+      `Usage limit exceeded. Free tier allows ${keyData.maxLimit} requests.`,
+    );
+  }
+
   const now = Date.now();
 
   if (now - keyData?.windowStart! > Window_MS) {
@@ -28,6 +36,7 @@ export const rateLimit = (req: Request, res: Response, next: NextFunction) => {
   }
 
   keyData.request += 1;
+  keyData.totalUsed += 1;
 
   next();
 };
