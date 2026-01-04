@@ -5,11 +5,12 @@ import dotenv from "dotenv";
 
 dotenv.config();
 const app = express();
+const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 app.use("/api", analyzeRouter);
 app.use(errorHandler);
 
-app.listen(8000, () => {
+app.listen(PORT, () => {
   console.log("server running on 8000");
 });
