@@ -31,14 +31,14 @@ Client
 
 🔐 Authentication
 Generate an API Key
-POST /api/apiKey
+POST https://resume-intelligence-api.onrender.com/api/apiKey
 
 Use the API Key in Requests
 Authorization: Bearer <API_KEY>
 
 📌 API Endpoints
 Analyze Resume
-POST /api/analyze
+POST https://resume-intelligence-api.onrender.com/api/analyze
 
 Request Body
 
@@ -57,7 +57,7 @@ Response
 }
 
 Usage Metrics
-GET /api/usage
+GET https://resume-intelligence-api.onrender.com/api/usage
 
 Response
 
